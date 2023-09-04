@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Container, TextField, Button, FormControl, InputLabel, Select, MenuItem, Alert, AlertTitle} from '@mui/material';
+import { Container, TextField, Button, FormControl, InputLabel, Select, MenuItem, Alert, AlertTitle, Slider, Stack} from '@mui/material';
 import React from 'react';
 import { css, cx } from '@emotion/css';
 import qrcode from "qrcode-generator";
@@ -32,13 +32,13 @@ class QRC extends React.Component {
             qr.make();
             this.setState({
                 QRImage : qr.createDataURL(),
-                ErrorMsg : "QR Code created ╚(•⌂•)╝",
+                ErrorMsg : "QR Code created 😊",
                 severity : "success",
             });
         }
         catch {
             this.setState({
-                ErrorMsg : "There was an erorr creating the QR Code try increasing the Type",
+                ErrorMsg : "There was an erorr creating the QR Code try increasing the Size, or lowering the Error Correction Level. 😕 ",
                 severity : "error",
             });
         }
@@ -90,55 +90,10 @@ class QRC extends React.Component {
                 width:60%;
                 margin : 4px;
             `}>
-            <InputLabel id="demo-simple-select-label">Type</InputLabel>
-            <Select
-                labelId="demo-simple-select-label"
-                id="type-select"
-                value={this.state.TypeNumber}
-                label="Type"
-                onChange={this.handleChange}
-            >
-                <MenuItem value={1} >1</MenuItem>
-                <MenuItem value={2} >2</MenuItem>
-                <MenuItem value={3} >3</MenuItem>
-                <MenuItem value={4} >4</MenuItem>
-                <MenuItem value={5} >5</MenuItem>
-                <MenuItem value={6} >6</MenuItem>
-                <MenuItem value={7} >7</MenuItem>
-                <MenuItem value={8} >8</MenuItem>
-                <MenuItem value={9} >9</MenuItem>
-                <MenuItem value={10} >10</MenuItem>
-                <MenuItem value={11} >11</MenuItem>
-                <MenuItem value={12} >12</MenuItem>
-                <MenuItem value={13} >13</MenuItem>
-                <MenuItem value={14} >14</MenuItem>
-                <MenuItem value={15} >15</MenuItem>
-                <MenuItem value={16} >16</MenuItem>
-                <MenuItem value={17} >17</MenuItem>
-                <MenuItem value={18} >18</MenuItem>
-                <MenuItem value={19} >19</MenuItem>
-                <MenuItem value={20} >20</MenuItem>
-                <MenuItem value={21} >21</MenuItem>
-                <MenuItem value={22} >22</MenuItem>
-                <MenuItem value={23} >23</MenuItem>
-                <MenuItem value={24} >24</MenuItem>
-                <MenuItem value={25} >25</MenuItem>
-                <MenuItem value={26} >26</MenuItem>
-                <MenuItem value={27} >27</MenuItem>
-                <MenuItem value={28} >28</MenuItem>
-                <MenuItem value={29} >29</MenuItem>
-                <MenuItem value={30} >30</MenuItem>
-                <MenuItem value={31} >31</MenuItem>
-                <MenuItem value={32} >32</MenuItem>
-                <MenuItem value={33} >33</MenuItem>
-                <MenuItem value={34} >34</MenuItem>
-                <MenuItem value={35} >35</MenuItem>
-                <MenuItem value={36} >36</MenuItem>
-                <MenuItem value={37} >37</MenuItem>
-                <MenuItem value={38} >38</MenuItem>
-                <MenuItem value={39} >39</MenuItem>
-                <MenuItem value={40} >40</MenuItem>
-            </Select>
+            <Stack spacing={2} direction="row" alignItems="center">
+                <p id="demo-simple-select-label">size:</p>
+                <Slider id="type-select" defaultValue={1} step={1} min={1} max={40} valueLabelDisplay="auto" marks />
+            </Stack>
             </FormControl>
 
             <FormControl className={css`
