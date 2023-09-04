@@ -26,7 +26,7 @@ export default function Home() {
       </Head>
       <Header />
       <Content>
-        <p>This is a very simple QR Code Generator that takes any text or link and transforms it into a qr code. It utilizes a JS librarie based of this <a href="https://kazuhikoarase.github.io/qrcode-generator/js/demo/">generator</a></p>
+        <p>This is a very simple QR Code Generator that takes any text or link and transforms it into a qr code.</p>
         <QRC />
       </Content>
     </div>
