@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { Container, TextField, Button, FormControl, InputLabel, Select, MenuItem, Alert, AlertTitle, Slider, Stack} from '@mui/material';
+import { Container, TextField, Button, FormControl, InputLabel, IconButton, Select, MenuItem, Alert, Slider, Stack, Grow} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import { css, cx } from '@emotion/css';
 import qrcode from "qrcode-generator";
@@ -15,6 +16,7 @@ class QRC extends React.Component {
             ErrorCorrectionLevel : "L",
             ErrorMsg : "",
             severity : "",
+            open: false,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -34,12 +36,14 @@ class QRC extends React.Component {
                 QRImage : qr.createDataURL(),
                 ErrorMsg : "QR Code created 😊",
                 severity : "success",
+                open : true,
             });
         }
         catch {
             this.setState({
                 ErrorMsg : "There was an erorr creating the QR Code try increasing the Size, or lowering the Error Correction Level. 😕 ",
                 severity : "error",
+                open : true,
             });
         }
     }
@@ -125,12 +129,26 @@ class QRC extends React.Component {
                 <Button onClick={this.setDefaults}>Clear</Button>
                 <Button onClick={this.generate_qr_code}>Submit</Button>
             </Container>
-            <Alert className={css`
-                display : ${this.state.severity !== "" ? "block" : "hidden" };
-                width : 60%;
-            `} severity={this.state.severity}>
-                {this.state.ErrorMsg}
-            </Alert>
+            <Grow mountOnEnter unmountOnExit in={this.state.open}>
+                <Alert className={css`
+                    width : 60%;
+                `} severity={this.state.severity}  action={
+                    <IconButton
+                      aria-label="close"
+                      color="inherit"
+                      size="small"
+                      onClick={() => {
+                        this.setState({
+                            open : false
+                        });
+                      }}
+                    >
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  }>
+                    {this.state.ErrorMsg}
+                </Alert>
+            </Grow>
             <img className={css`
                 width:60%;
             `}
